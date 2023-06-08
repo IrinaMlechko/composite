@@ -9,7 +9,7 @@ import by.mlechka.composite.type.TextType;
 
 public class Main {
 
-    public static final String FILE_NAME = "text.txt";
+    public static final String FILE_NAME = "text1.txt";
 
     public static void main(String[] args) throws CustomException {
 

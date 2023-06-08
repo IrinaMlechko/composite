@@ -62,9 +62,7 @@ public class TextComposite implements TextComponent {
         }
 
         for (TextComponent component : components) {
-            if (component instanceof TextComposite) {
                 count += component.count(type);
-            }
         }
 
         return count;
