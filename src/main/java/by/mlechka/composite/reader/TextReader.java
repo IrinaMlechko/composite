@@ -18,7 +18,7 @@ public class TextReader {
         try {
             text = Files.readString(filePath);
         } catch (Exception e) {
-            throw new CustomException("Failed to read text from file: " + fileName);
+            throw new CustomException(e);
         }
         return text;
     }
