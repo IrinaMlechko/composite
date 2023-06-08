@@ -1,6 +1,6 @@
 package by.mlechka.composite.parser;
 
-import by.mlechka.composite.base.TextComposite;
+import by.mlechka.composite.component.TextComposite;
 
 public abstract class AbstractTextParser {
     protected AbstractTextParser successor;

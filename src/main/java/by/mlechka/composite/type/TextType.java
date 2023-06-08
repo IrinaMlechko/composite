@@ -2,8 +2,9 @@ package by.mlechka.composite.type;
 
 public enum TextType {
     LETTER,
-    PUNCTUATION_MARC,
+    PUNCTUATION_MARK,
     LEXEME,
     SENTENCE,
-    PARAGRAPH
+    PARAGRAPH,
+    TEXT
 }
