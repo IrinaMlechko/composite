@@ -1,4 +1,4 @@
-package by.mlechka.xml.exception;
+package by.mlechka.composite.exception;
 
 public class CustomException extends Exception{
     public CustomException() {

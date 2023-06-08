@@ -1,6 +1,6 @@
-package by.mlechka.xml.reader;
+package by.mlechka.composite.reader;
 
-import by.mlechka.xml.exception.CustomException;
+import by.mlechka.composite.exception.CustomException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
