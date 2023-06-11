@@ -1,15 +1,12 @@
 package by.mlechka.composite.main;
 
 import by.mlechka.composite.builder.TextBuilder;
-import by.mlechka.composite.component.TextComponent;
 import by.mlechka.composite.component.TextComposite;
 import by.mlechka.composite.exception.CustomException;
 import by.mlechka.composite.parser.TextParser;
 import by.mlechka.composite.reader.PropertiesStreamReader;
 import by.mlechka.composite.reader.TextReader;
 import by.mlechka.composite.type.TextType;
-
-import java.util.List;
 
 public class Main {
 

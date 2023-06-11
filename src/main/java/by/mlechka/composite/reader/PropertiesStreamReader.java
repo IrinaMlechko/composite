@@ -13,12 +13,13 @@ public class PropertiesStreamReader {
         Path path;
         try {
             resource = getClass().getClassLoader().getResource(fileName);
-            path = Paths.get(resource.toURI());
+            if (resource == null) {
+                throw new CustomException("File not found " + fileName);
+            } else{
+                path = Paths.get(resource.toURI());
+            }
         } catch (URISyntaxException ex) {
             throw new CustomException("Could to get path for " + fileName);
-        }
-        if (resource == null) {
-            throw new CustomException("File not found " + fileName);
         }
         return path;
     }
