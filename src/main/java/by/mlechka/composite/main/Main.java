@@ -6,6 +6,8 @@ import by.mlechka.composite.exception.CustomException;
 import by.mlechka.composite.parser.TextParser;
 import by.mlechka.composite.reader.PropertiesStreamReader;
 import by.mlechka.composite.reader.TextReader;
+import by.mlechka.composite.service.TextAnalyseService;
+import by.mlechka.composite.service.impl.TextAnalyseServiceImpl;
 import by.mlechka.composite.type.TextType;
 
 public class Main {
@@ -22,6 +24,7 @@ public class Main {
         TextComposite textComposite = new TextComposite(TextType.TEXT);
         textParser.parse(textReader.readTextFromFile(FILE_NAME), textComposite);
         TextBuilder textBuilder = new TextBuilder();
+        TextAnalyseService textAnalyseService = new TextAnalyseServiceImpl();
         int paragraphCount = textComposite.count(TextType.PARAGRAPH);
         System.out.println("Amount of paragraphs: " + paragraphCount);
         int sentenceCount = textComposite.count(TextType.SENTENCE);
@@ -33,15 +36,8 @@ public class Main {
         int punctuationCount = textComposite.count(TextType.PUNCTUATION_MARK);
         System.out.println("Amount of punctuation marks: " + punctuationCount);
         System.out.println(textBuilder.buildText(textComposite));
-//        for(TextComponent paragraph : textComposite.getComponentsByType(TextType.PARAGRAPH)){
-//            for(TextComponent sentence : textComposite.getComponentsByType(TextType.SENTENCE)){
-//                for(TextComponent lexeme : textComposite.getComponentsByType(TextType.LEXEME)){
-//                    System.out.println(lexeme.toString());
-//                }
-//
-//            }
-//
-//        }
-
+        textAnalyseService.sortParagraphsBySentenceCount(textComposite);
+        System.out.println(textComposite);
+        System.out.println(textAnalyseService.findSentencesWithLongestWord(textComposite));
     }
 }

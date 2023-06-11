@@ -33,7 +33,13 @@ public class TextComposite implements TextComponent {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(type).append(": ");
+//        sb.append(type).append(": ");
+        if (type == TextType.LEXEME){
+            sb.append(" ");
+        }
+        if (type == TextType.PARAGRAPH){
+            sb.append("\n");
+        }
         for (TextComponent component : components) {
             sb.append(component.toString());
         }
@@ -61,5 +67,10 @@ public class TextComposite implements TextComponent {
         }
         return componentsByType;
     }
+
+    public void clearComponents() {
+        components.clear();
+    }
+
 
 }
