@@ -1,6 +1,5 @@
 package by.mlechka.composite.service;
 
-import by.mlechka.composite.component.TextComponent;
 import by.mlechka.composite.component.TextComposite;
 import by.mlechka.composite.exception.CustomException;
 
