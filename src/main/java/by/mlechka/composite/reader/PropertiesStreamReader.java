@@ -18,7 +18,7 @@ public class PropertiesStreamReader {
             throw new CustomException("Could to get path for " + fileName);
         }
         if (resource == null) {
-            throw new IllegalArgumentException("File not found " + fileName);
+            throw new CustomException("File not found " + fileName);
         }
         return path;
     }

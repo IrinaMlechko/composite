@@ -4,7 +4,7 @@ import by.mlechka.composite.type.TextType;
 
 public class Symbol implements TextComponent {
 
-    public static final String PUNCTUATION_MARC = ".,!?;:";
+    public static final String PUNCTUATION_MARC = "\\p{P}";
 
     private char symbol;
 
@@ -22,16 +22,7 @@ public class Symbol implements TextComponent {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Symbol{");
-        sb.append("symbol=").append(symbol);
-        sb.append(", type=").append(type);
-        sb.append('}');
-        return sb.toString();
-    }
-
-    @Override
-    public String action() {
-        return symbol + " " + type;
+        return String.valueOf(symbol);
     }
 
     @Override
@@ -40,7 +31,7 @@ public class Symbol implements TextComponent {
     }
 
     public static boolean isPunctuationMark(char symbol) {
-        return PUNCTUATION_MARC.contains(String.valueOf(symbol));
+        return String.valueOf(symbol).matches(PUNCTUATION_MARC);
     }
 
 }

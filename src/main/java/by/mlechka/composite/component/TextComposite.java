@@ -22,13 +22,8 @@ public class TextComposite implements TextComponent {
         return type;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("TextComposite{");
-        sb.append("components=").append(components);
-        sb.append(", type=").append(type);
-        sb.append('}');
-        return sb.toString();
+    public List<TextComponent> getComponents() {
+        return components;
     }
 
     public boolean add(TextComponent component) {
@@ -36,47 +31,35 @@ public class TextComposite implements TextComponent {
     }
 
     @Override
-    public String action() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(type).append(": ");
         for (TextComponent component : components) {
-            sb.append(component.action());
+            sb.append(component.toString());
         }
         return sb.toString();
     }
 
-//
-//    public int count() {
-//        int count = 0;
-//        for (TextComponent component : components) {
-//            count += component.count();
-//        }
-//        return count;
-//    }
     @Override
     public int count(TextType type) {
         int count = 0;
-
         if (this.type == type) {
             count++;
         }
-
         for (TextComponent component : components) {
                 count += component.count(type);
         }
-
         return count;
     }
 
     public List<TextComponent> getComponentsByType(TextType type) {
         List<TextComponent> componentsByType = new ArrayList<>();
-
         for (TextComponent component : components) {
             if (component.getType() == type) {
                 componentsByType.add(component);
             }
         }
-
         return componentsByType;
     }
+
 }

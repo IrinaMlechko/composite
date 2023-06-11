@@ -4,7 +4,7 @@ import by.mlechka.composite.type.TextType;
 
 public interface TextComponent {
 
-    String action();
+    String toString();
 
     int count(TextType type);
 
