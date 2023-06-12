@@ -11,4 +11,6 @@ public interface TextAnalyseService {
     void sortParagraphsBySentenceCount(TextComposite textComposite) throws CustomException;
 
     List<String> findSentencesWithLongestWord(TextComposite textComposite);
+
+    void removeSentencesWithFewerWords(TextComposite textComposite, int wordCount);
 }

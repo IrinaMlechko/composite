@@ -14,7 +14,6 @@ public class Main {
 
     public static final String FILE_NAME = "text.txt";
 
-
     public static void main(String[] args) throws CustomException {
 
         PropertiesStreamReader propertiesStreamReader = new PropertiesStreamReader();
@@ -36,8 +35,10 @@ public class Main {
         int punctuationCount = textComposite.count(TextType.PUNCTUATION_MARK);
         System.out.println("Amount of punctuation marks: " + punctuationCount);
         System.out.println(textBuilder.buildText(textComposite));
-        textAnalyseService.sortParagraphsBySentenceCount(textComposite);
+//        textAnalyseService.sortParagraphsBySentenceCount(textComposite);
         System.out.println(textComposite);
         System.out.println(textAnalyseService.findSentencesWithLongestWord(textComposite));
+        textAnalyseService.removeSentencesWithFewerWords(textComposite, 14);
+        System.out.println(textComposite);
     }
 }
