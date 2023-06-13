@@ -1,9 +1,11 @@
 package by.mlechka.composite.service;
 
+import by.mlechka.composite.component.LetterCount;
 import by.mlechka.composite.component.TextComposite;
 import by.mlechka.composite.exception.CustomException;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TextAnalyseService {
 
@@ -30,4 +32,8 @@ public interface TextAnalyseService {
      * @param wordCount     the minimum number of words a sentence should have to be retained
      */
     void removeSentencesWithFewerWords(TextComposite textComposite, int wordCount);
+
+    Map<String, Integer> countSameWords(TextComposite textComposite);
+
+    Map<Integer, LetterCount> countVowelsAndConsonants(TextComposite textComposite);
 }

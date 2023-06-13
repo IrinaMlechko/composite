@@ -38,7 +38,9 @@ public class Main {
 //        textAnalyseService.sortParagraphsBySentenceCount(textComposite);
         System.out.println(textComposite);
         System.out.println(textAnalyseService.findSentencesWithLongestWord(textComposite));
-        textAnalyseService.removeSentencesWithFewerWords(textComposite, 14);
-        System.out.println(textComposite);
+//        textAnalyseService.removeSentencesWithFewerWords(textComposite, 14);
+//        System.out.println(textComposite);
+        System.out.println(textAnalyseService.countSameWords(textComposite));
+        System.out.println(textAnalyseService.countVowelsAndConsonants(textComposite));
     }
 }

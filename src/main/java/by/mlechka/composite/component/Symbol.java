@@ -15,6 +15,10 @@ public class Symbol implements TextComponent {
         this.type = type;
     }
 
+    public char getSymbol() {
+        return symbol;
+    }
+
     @Override
     public TextType getType() {
         return type;

@@ -1,5 +1,7 @@
 package by.mlechka.composite.service.impl;
 
+import by.mlechka.composite.component.LetterCount;
+import by.mlechka.composite.component.Symbol;
 import by.mlechka.composite.component.TextComponent;
 import by.mlechka.composite.component.TextComposite;
 import by.mlechka.composite.exception.CustomException;
@@ -8,9 +10,9 @@ import by.mlechka.composite.type.TextType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TextAnalyseServiceImpl implements TextAnalyseService {
 
@@ -90,6 +92,7 @@ public class TextAnalyseServiceImpl implements TextAnalyseService {
         }
         return count;
     }
+
     @Override
     public void removeSentencesWithFewerWords(TextComposite textComposite, int wordCount) {
         List<TextComponent> sentencesToRemove = new ArrayList<>();
@@ -126,6 +129,105 @@ public class TextAnalyseServiceImpl implements TextAnalyseService {
             }
         }
         return count;
+    }
+
+    @Override
+    public Map<String, Integer> countSameWords(TextComposite textComposite) {
+        Map<String, Integer> wordCountMap = new HashMap<>();
+        Map<String, Integer> repeatedWordsMap = new HashMap<>();
+
+        for (TextComponent paragraph : textComposite.getComponents()) {
+            if (paragraph.getType() == TextType.PARAGRAPH) {
+                for (TextComponent sentence : ((TextComposite) paragraph).getComponents()) {
+                    if (sentence.getType() == TextType.SENTENCE) {
+                        for (TextComponent lexeme : ((TextComposite) sentence).getComponents()) {
+                            if (lexeme.getType() == TextType.LEXEME) {
+                                StringBuilder wordBuilder = new StringBuilder();
+                                for (TextComponent component : ((TextComposite) lexeme).getComponents()) {
+                                    if (component.getType() == TextType.LETTER) {
+                                        String letter = component.toString();
+                                        wordBuilder.append(letter);
+                                    } else if (component.getType() == TextType.PUNCTUATION_MARK) {
+                                        String word = wordBuilder.toString();
+                                        if (!word.isEmpty()) {
+                                            String cleanedWord = word.toLowerCase();
+                                            int count = wordCountMap.getOrDefault(cleanedWord, 0) + 1;
+                                            wordCountMap.put(cleanedWord, count);
+                                            if (count > 1) {
+                                                repeatedWordsMap.put(cleanedWord, count);
+                                            }
+                                        }
+                                        wordBuilder = new StringBuilder();
+                                    }
+                                }
+                                String word = wordBuilder.toString();
+                                if (!word.isEmpty()) {
+                                    String cleanedWord = word.toLowerCase();
+                                    int count = wordCountMap.getOrDefault(cleanedWord, 0) + 1;
+                                    wordCountMap.put(cleanedWord, count);
+                                    if (count > 1) {
+                                        repeatedWordsMap.put(cleanedWord, count);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return repeatedWordsMap;
+    }
+
+    @Override
+    public Map<Integer, LetterCount> countVowelsAndConsonants(TextComposite textComposite) {
+        Map<Integer, LetterCount> countMap = new HashMap<>();
+
+        int sentenceIndex = 0;
+        for (TextComponent paragraph : textComposite.getComponents()) {
+            if (paragraph.getType() == TextType.PARAGRAPH) {
+                for (TextComponent sentence : ((TextComposite) paragraph).getComponents()) {
+                    if (sentence.getType() == TextType.SENTENCE) {
+                        int vowelsCount = 0;
+                        int consonantsCount = 0;
+
+                        for (TextComponent lexeme : ((TextComposite) sentence).getComponents()) {
+                            if (lexeme.getType() == TextType.LEXEME) {
+                                for (TextComponent component : ((TextComposite) lexeme).getComponents()) {
+                                    if (component.getType() == TextType.LETTER) {
+                                        Symbol letter = (Symbol) component;
+                                        char symbol = letter.getSymbol();
+
+                                        if (isVowel(symbol)) {
+                                            vowelsCount++;
+                                        } else if (isConsonant(symbol)) {
+                                            consonantsCount++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        LetterCount letterCount = new LetterCount(vowelsCount, consonantsCount);
+                        countMap.put(sentenceIndex++, letterCount);
+                    }
+                }
+            }
+        }
+
+        return countMap;
+    }
+
+    private boolean isVowel(char symbol) {
+        String vowelPattern = "[аеёиоуыэюя]";
+        Pattern regex = Pattern.compile(vowelPattern, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = regex.matcher(Character.toString(symbol));
+        return matcher.matches();
+    }
+
+    private boolean isConsonant(char symbol) {
+        char lowerCaseSymbol = Character.toLowerCase(symbol);
+        return Character.isLetter(lowerCaseSymbol) && !isVowel(lowerCaseSymbol);
     }
 
 
