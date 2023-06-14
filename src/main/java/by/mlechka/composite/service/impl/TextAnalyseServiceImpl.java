@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 public class TextAnalyseServiceImpl implements TextAnalyseService {
 
+    public static final String VOWEL_PATTERN = "[аеёиоуыэюяeuioay]";
     static Logger logger = LogManager.getLogger();
 
     @Override
@@ -219,8 +220,7 @@ public class TextAnalyseServiceImpl implements TextAnalyseService {
     }
 
     private boolean isVowel(char symbol) {
-        String vowelPattern = "[аеёиоуыэюя]";
-        Pattern regex = Pattern.compile(vowelPattern, Pattern.CASE_INSENSITIVE);
+        Pattern regex = Pattern.compile(VOWEL_PATTERN, Pattern.CASE_INSENSITIVE);
         Matcher matcher = regex.matcher(Character.toString(symbol));
         return matcher.matches();
     }

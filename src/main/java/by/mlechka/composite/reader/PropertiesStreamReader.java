@@ -19,7 +19,7 @@ public class PropertiesStreamReader {
                 throw new CustomException("File not found " + fileName);
             }
         } catch (URISyntaxException ex) {
-            throw new CustomException("Could to get path for " + fileName);
+            throw new CustomException(ex);
         }
         return path;
     }
